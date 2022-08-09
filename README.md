@@ -27,4 +27,3 @@ If you use windows (not supported, just for personal tests):
 
 python3 imgrank_windows.py -h <YOUR_URL>
 
-If hy
