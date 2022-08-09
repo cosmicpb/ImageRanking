@@ -6,7 +6,7 @@ import requests
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
-driver.get("https://avon.mx")
+driver.get("https://facebook.com")
 
 driver.implicitly_wait(10)
 images = driver.find_elements(By.TAG_NAME, 'img')
