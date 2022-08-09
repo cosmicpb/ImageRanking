@@ -17,19 +17,21 @@ def func(h):
     time.sleep(10)
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     images = driver.find_elements(By.TAG_NAME, 'img')
-
+    
     for img in images:
         
         imgsource = img.get_attribute('src')
-        r = requests.get(imgsource)
-        print(imgsource)
-        el = r.headers.get('Content-length')
-        if(el.isdigit()):
-            el = int(el)/1024
-            
-            print("Image Size: %.2f kB" % el)
-        else:
-            print('There is no Content-Length in .head')
+        if(imgsource):
+            r = requests.get(imgsource)
+            print(imgsource)
+            el = r.headers.get('Content-length')
+            if(el.isdigit()):
+                
+                el = int(el)/1024
+                
+                print("Image Size: %.2f kB" % el)
+            else:
+                print('There is no Content-Length in .head')
        
         
 
