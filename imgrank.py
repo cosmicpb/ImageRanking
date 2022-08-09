@@ -3,19 +3,38 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import requests
+import click
+import time
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+@click.command()
+@click.option('-h', required=True, type=str)
 
-driver.get("https://facebook.com")
+def func(h):
 
-driver.implicitly_wait(10)
-images = driver.find_elements(By.TAG_NAME, 'img')
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
-for img in images:
+    driver.get(h)
+    time.sleep(10)
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    images = driver.find_elements(By.TAG_NAME, 'img')
+
+    for img in images:
+        
+        imgsource = img.get_attribute('src')
+        r = requests.get(imgsource)
+        print(imgsource)
+        el = r.headers.get('Content-length')
+        if(el.isdigit()):
+            el = int(el)/1024
+            
+            print("Image Size: %.2f kB" % el)
+        else:
+            print('There is no Content-Length in .head')
+       
+        
+
+
+
+if __name__ == '__main__':
     
-    imgsource = img.get_attribute('src')
-    r = requests.get(imgsource)
-    print(imgsource)
-    print(r.headers['Content-length'])
-
-    
+    func()
