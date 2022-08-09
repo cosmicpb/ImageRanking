@@ -9,9 +9,9 @@ import time
 
 @click.command()
 @click.option('-h', required=True, type=str)
+@click.option('-t', required=True, type=str)
 
-
-def func(h):
+def func(h, t):
 
  
     options = Options()
@@ -21,7 +21,7 @@ def func(h):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     
     driver.get(h)
-    time.sleep(10)
+    time.sleep(t)
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     images = driver.find_elements(By.TAG_NAME, 'img')
     
