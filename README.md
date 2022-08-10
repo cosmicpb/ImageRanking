@@ -20,10 +20,10 @@ cd ImageRanking
 
 pip install -r requirements.txt
 
-python3 imgrank_linux.py -h <YOUR_URL>
+python3 imgrank_linux.py -h <YOUR_URL> -t <SLEEP_TIME>
 
 
 If you use windows (not supported, just for personal tests):
 
-python3 imgrank_windows.py -h <YOUR_URL>
+python3 imgrank_windows.py -h <YOUR_URL> -t <SLEEP_TIME>
 
