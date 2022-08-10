@@ -1,5 +1,7 @@
 # ImageRanking
 
+Linux/Windows:
+
 sudo apt update
 
 sudo apt install python3-pip
@@ -20,10 +22,12 @@ cd ImageRanking
 
 pip install -r requirements.txt
 
-python3 imgrank_linux.py -h <YOUR_URL> -t <SLEEP_TIME>
+python3 imgrank.py -h <YOUR_URL> -t <SLEEP_TIME>
 
 
-If you use windows (not supported, just for personal tests):
 
-python3 imgrank_windows.py -h <YOUR_URL> -t <SLEEP_TIME>
+
+For Dev use, just if you run in Windows (other kind of code to do the same thing, but just in Windows)
+
+python3 imgrank_dev_windows.py -h <YOUR_URL> -t <SLEEP_TIME>
 
