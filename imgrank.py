@@ -7,6 +7,7 @@ from datetime import datetime
 import requests
 import click
 import time
+import gui
 
 class obj:
     def __init__(self, url, size, time):
@@ -29,7 +30,7 @@ def func(h, t):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     
-    
+    gui.hellogui(h, t)
     driver.get(h)
     time.sleep(int(t))
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -40,23 +41,18 @@ def func(h, t):
         
         imgsource = img.get_attribute('src')
         if(imgsource):
+            now = datetime.now()
+            tmnow = now.strftime("%d_%m_%Y.%H_%M_%S")
+            r = requests.get(imgsource)                    
 
-            r = requests.get(imgsource)
-            #print(imgsource)
-            el = str(r.headers.get('Content-length'))
-            if(el.isdigit()):
-
-                el = int(el)/1024
-                fel = "{:.2f}".format(el)
-                now = datetime.now()
-                tmnow = now.strftime("%d_%m_%Y.%H_%M_%S")
-                imgsum = imgsum + el
-                if(obj(imgsource, float(fel), tmnow) not in objs):
-                    objs.append(obj(imgsource,float(fel), tmnow))                
+            el = len(r.content)/1024
+            fel = "{:.2f}".format(el)
+            
+            imgsum = imgsum + el
+            if(obj(imgsource, float(fel), tmnow) not in objs):
+                objs.append(obj(imgsource,float(fel), tmnow))                
                 
-                #print("Image Size: %.2f kB" % el)
-            #else:
-                #print('There is no Content-Length in .head')
+
 
     objs.sort(key=lambda x: x.size)
     for ent in objs:
