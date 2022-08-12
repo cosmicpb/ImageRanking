@@ -20,5 +20,6 @@ tqdm==4.64.0
 trio==0.21.0
 trio-websocket==0.9.2
 urllib3==1.26.11
+validators
 webdriver-manager==3.8.3
 wsproto==1.1.0

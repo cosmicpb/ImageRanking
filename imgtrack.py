@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from datetime import datetime
 from tqdm import tqdm
 from alive_progress import alive_bar
+import validators
 import requests
 import click
 import time
@@ -50,6 +51,7 @@ def func(h, t):
     images = driver.find_elements(By.TAG_NAME, 'img')
     gui.div()
     print('Images found: ' + str(len(images)))
+
     gui.div()
     ##Declaring WebElements Array and webelements size sum
     objs = []
@@ -62,7 +64,7 @@ def func(h, t):
         ##Taking the tag source
         imgsource = img.get_attribute('src')
         
-        if(imgsource):
+        if(validators.url(imgsource)):
             now = datetime.now()
             tmnow = now.strftime("%d_%m_%Y.%H_%M_%S")
             r = requests.get(imgsource)                    
