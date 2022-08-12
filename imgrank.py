@@ -5,6 +5,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from datetime import datetime
 from tqdm import tqdm
+from alive_progress import alive_bar
 import requests
 import click
 import time
@@ -49,17 +50,18 @@ def func(h, t):
     images = driver.find_elements(By.TAG_NAME, 'img')
     gui.div()
     print('Images found: ' + str(len(images)))
+    gui.div()
     ##Declaring WebElements Array and webelements size sum
     objs = []
     imgsum = 0
-
+    print('Sizing images:')
+    
     ##iterating in images
-    for img in images:
-        
+    for img in tqdm(images):
         
         ##Taking the tag source
         imgsource = img.get_attribute('src')
-
+        
         if(imgsource):
             now = datetime.now()
             tmnow = now.strftime("%d_%m_%Y.%H_%M_%S")
@@ -70,7 +72,9 @@ def func(h, t):
             
             imgsum = imgsum + el
             if(obj(imgsource, float(fel), tmnow) not in objs):
-                objs.append(obj(imgsource,float(fel), tmnow))                
+                objs.append(obj(imgsource,float(fel), tmnow))  
+
+            
                 
 
 
