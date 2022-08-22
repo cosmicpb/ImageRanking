@@ -63,7 +63,7 @@ def func(h, t):
         
         ##Taking the tag source
         imgsource = img.get_attribute('src')
-        
+        imgsource = str(imgsource)
         if(validators.url(imgsource)):
             now = datetime.now()
             tmnow = now.strftime("%d_%m_%Y.%H_%M_%S")
