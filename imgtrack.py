@@ -49,6 +49,7 @@ def func(h, t):
 
     ##Find images
     images = driver.find_elements(By.TAG_NAME, 'img')
+    
     gui.div()
     print('Images found: ' + str(len(images)))
 
