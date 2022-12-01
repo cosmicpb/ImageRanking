@@ -11,7 +11,6 @@ import requests
 import click
 import time
 import gui
-import pgr
 
 class obj:
     def __init__(self, url, size, time):
@@ -28,7 +27,7 @@ def func(h, t):
 
     ##Selenium Options
     options = Options()
-    options.add_argument('--headless')
+    # options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
 
@@ -37,7 +36,7 @@ def func(h, t):
 
     ##Show apresentation
     gui.hellogui(h, t)
-    items = list(range(0, int(t)))
+
 
     ##Enter the page, wait loading the entire page and scroll down to the bottom page
     driver.get(h)
@@ -68,7 +67,9 @@ def func(h, t):
         if(validators.url(imgsource)):
             now = datetime.now()
             tmnow = now.strftime("%d_%m_%Y.%H_%M_%S")
-            r = requests.get(imgsource)                    
+            r = requests.get(imgsource)
+
+            'Content-Lenght'                    
 
             el = len(r.content)/1024
             fel = "{:.2f}".format(el)
@@ -82,6 +83,9 @@ def func(h, t):
 
 
     objs.sort(key=lambda x: x.size)
+
+
+
     for ent in objs:
         print(str(getattr(ent, 'time')))
         print(getattr(ent, 'url'))
