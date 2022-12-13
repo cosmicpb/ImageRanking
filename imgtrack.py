@@ -20,14 +20,16 @@ class obj:
 
 
 @click.command()
-@click.option('-h', required=True, type=str)
+@click.option('-u', required=True, type=str)
 @click.option('-t', required=True, type=str)
+@click.option('-h', type=bool, default=False)
 
-def func(h, t):
+def func(u, t, h):
 
     ##Selenium Options
     options = Options()
-    # options.add_argument('--headless')
+    if h:
+        options.add_argument('--headless') 
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
 
@@ -35,16 +37,25 @@ def func(h, t):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     ##Show apresentation
-    gui.hellogui(h, t)
+    gui.hellogui(u, t)
 
 
     ##Enter the page, wait loading the entire page and scroll down to the bottom page
-    driver.get(h)
+    driver.get(u)
+    time.sleep(3)
+
     
+    height = driver.execute_script("return document.body.scrollHeight")
+    interval = height/int(t)
+    
+    y = 100
     for i in tqdm(range(int(t))):
         time.sleep(1)
+        driver.execute_script("window.scrollTo(0, "+str(y)+");")
+        y = y + interval
+        # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     ##time.sleep(int(t))
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    
 
     ##Find images
     images = driver.find_elements(By.TAG_NAME, 'img')
